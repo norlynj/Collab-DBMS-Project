@@ -52,7 +52,7 @@ deadline date not null,
 state varchar(20) default '' 
 	check(state='to-do' or state='in progress' or 
 		state='for review' or state='testing' or state='passed'),
-overdue varchar(10) default ''
+overdue varchar(10) default 'N'
 );
 
 
