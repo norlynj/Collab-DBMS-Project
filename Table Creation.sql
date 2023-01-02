@@ -8,6 +8,7 @@ drop table if exists task;
 drop table if exists status;
 drop table if exists label;
 drop table if exists comment;
+drop table if exists assign_role;
 drop table if exists assign_label;
 drop table if exists assign_task;
 drop table if exists task_status;
