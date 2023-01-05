@@ -1,4 +1,10 @@
+use collab;
 # ADMIN ---------
+-- as an admin, we can't delete anything. We are denied from doing this. 
+-- delete from assign_task;
+
+-- we can't also insert students as an admin
+-- insert into student values ("2020-07871", "Test", "test@got.com");
 
 START TRANSACTION;
 # As a Task Leader, I can manage tasks, task status, and task label
@@ -10,7 +16,7 @@ update status s
     set s.deadline = '2023-03-01'
     where tl.label_id = 'BE';
     
--- Update the task status state to ‘passed’ assigned that are assigned to students with ids 2020-07863, 2020-07864
+-- Update the task status state to ‘passed’ of tasks that are assigned to students with ids 2020-07863, 2020-07864
 -- Assume the group leader that executed this query has a student number of 2020-07858
 update status s
 	inner join task_status ts on s.id = ts.status_id
@@ -46,6 +52,7 @@ insert into comment values ("CBE04", "Check Inflection Points");
 insert into task_comment values ("BE04", "CBE04", "2020-07858");
 
 COMMIT;
+
 
 -- confirming if the above set of queries worked (expect no values returned)
 select id from student where id not in (select student_id from assign_task);

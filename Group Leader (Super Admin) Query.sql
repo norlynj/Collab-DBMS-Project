@@ -1,3 +1,4 @@
+use collab;
 # SUPER ADMIN ---------
 
 START TRANSACTION;
@@ -18,6 +19,12 @@ insert into student values
 ("2020-07869", "Jorah Mormont", "jorah@got.com"),
 ("2020-07870", "Theon Greyjoy", "theon@got.com");
 
+insert into label values
+("FE", "Front End"),
+("BE", "Back End"),
+("TE", "Testing"),
+("CD", "Conceptual Design");
+
 insert into task values
 ("FE01", "Homepage", "Design and Code Homepage view"),
 ("FE02", "Admin page", "Design and Code Admin view"),
@@ -34,12 +41,6 @@ insert into task values
 ("CD01", "Formulate Workflow", "Create User Story"),
 ("CD02", "Design MVC", "Plan out business logic"),
 ("CD03", "Gather References", "Find relevant project references");
-
-insert into label values
-("FE", "Front End"),
-("BE", "Back End"),
-("TE", "Testing"),
-("CD", "Conceptual Design");
 
 insert into comment values
 ("CBE01", "Lacks unit tests"),
@@ -93,7 +94,7 @@ insert into assign_task values
 
 COMMIT;
 
--- see students, their roles, tasks, and task labels
+-- see students with their roles, tasks, and task labels
 select at.student_id, r.name as 'role', at.task_id, t.title, t.description from student s
 	inner join assign_role ar on s.id = ar.student_id
     inner join role r on r.id = ar.role_id
