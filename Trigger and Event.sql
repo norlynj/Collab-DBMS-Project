@@ -3,6 +3,7 @@ drop trigger if exists validate_email;
 drop trigger if exists insert_task_status_and_label;
 drop trigger if exists update_task_name_to_done;
 drop trigger if exists insert_task_label;
+drop trigger if exists monitor_task_overdue_before_update;
 drop event if exists monitor_deadline_overdue;
 
 -- Trigger 1: Validate student email format input
@@ -59,6 +60,21 @@ begin
 		inner join task_status as ts on t.id = ts.task_id
 		set t.title = concat('✓', t.title)
 		where ts.status_id = New.id;
+	end if;
+end;//
+delimiter ;
+
+
+-- Trigger 5: Monitor deadline before update and change status overdue to "Y" once deadline has passed, else “N”
+delimiter //
+create trigger monitor_task_overdue_before_update
+	before update on status
+    for each row
+begin
+	if New.deadline < curdate() and New.state != 'passed' then
+		set New.overdue = 'Y';
+	else
+		set New.overdue = 'N';
 	end if;
 end;//
 delimiter ;
